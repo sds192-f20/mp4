@@ -1,0 +1,83 @@
+---
+title: "Put a real title here"
+subtitle: "SDS 192: MP3"
+author: "Your name"
+date: "`r format(Sys.Date(), '%B %e, %Y')`"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    fig_width: 7
+    fig_height: 6
+    fig_caption: true
+    theme: lumen
+    df_print: paged
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  echo = TRUE,
+  warning = FALSE
+)
+library(tidyverse)
+library(sds192)
+```
+
+## Introduction
+
+> READ THE INSTRUCTIONS: https://beanumber.github.io/sds192/mod_babynames.html
+
+Your goal is to recreate this data graphic as closely as you can:
+
+## Loading the data
+
+```{r, message=FALSE}
+library(babynames)
+```
+
+### Hard-coded list of names
+
+You might find this list of names helpful for debugging. 
+However, you should **not** use these in your final graphic -- your goal is to generate the correct list of names algorithmically.
+
+```{r}
+fd_names <- c(
+  "Jessie", "Marion", "Jackie", "Alva", "Ollie",
+  "Jody", "Cleo", "Kerry", "Frankie", "Guadalupe",
+  "Carey", "Tommie", "Angel", "Hollis", "Sammie",
+  "Jamie", "Kris", "Robbie", "Tracy", "Merrill",
+  "Noel", "Rene", "Johnnie", "Ariel", "Jan",
+  "Devon", "Cruz", "Michel", "Gale", "Robin",
+  "Dorian", "Casey", "Dana", "Kim", "Shannon"
+) %>%
+  enframe(name = "fd_rank", value = "name")
+glimpse(fd_names)
+```
+
+## Word count
+
+```{r word_count, message=FALSE, echo=FALSE}
+text_stats()
+```
+
+## Standards
+
+In this assignment, we are attempting the following standards:
+
+```{r buttons, echo=FALSE}
+standard_button("markdown")
+standard_button("aesthetics")
+standard_button("wrangling")
+standard_button("context")
+standard_button("reshape")
+standard_button("relational")
+standard_button("ethics")
+standard_button("github")
+standard_button("iteration")
+standard_button("function")
+```
+
+
