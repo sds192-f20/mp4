@@ -1,9 +1,13 @@
 ---
 title: "Put a real title here"
-subtitle: "SDS 192: MP3"
-author: "Your name"
+subtitle: "SDS 192: MP4"
+author: 
+- name: Author One
+  affiliation: Smith College
+- name: Author Two
+  affiliation: Smith College
 date: "`r format(Sys.Date(), '%B %e, %Y')`"
-output: 
+output:
   html_document:
     toc: true
     toc_depth: 2
@@ -24,38 +28,46 @@ knitr::opts_chunk$set(
 )
 library(tidyverse)
 library(sds192)
+library(sf)
 ```
 
 ## Introduction
 
-> READ THE INSTRUCTIONS: https://beanumber.github.io/sds192/mod_babynames.html
+> READ THE INSTRUCTIONS: https://beanumber.github.io/sds192/mod_spatial.html
 
-Your goal is to recreate this data graphic as closely as you can:
 
 ## Loading the data
 
 ```{r, message=FALSE}
-library(babynames)
+library(macleish)
+names(macleish_layers)
 ```
 
-### Hard-coded list of names
+## Static maps
 
-You might find this list of names helpful for debugging. 
-However, you should **not** use these in your final graphic -- your goal is to generate the correct list of names algorithmically.
+You can make a basic static map with **ggplot2** using `geom_sf()`, as shown in the figure below.
 
-```{r}
-fd_names <- c(
-  "Jessie", "Marion", "Jackie", "Alva", "Ollie",
-  "Jody", "Cleo", "Kerry", "Frankie", "Guadalupe",
-  "Carey", "Tommie", "Angel", "Hollis", "Sammie",
-  "Jamie", "Kris", "Robbie", "Tracy", "Merrill",
-  "Noel", "Rene", "Johnnie", "Ariel", "Jan",
-  "Devon", "Cruz", "Michel", "Gale", "Robin",
-  "Dorian", "Casey", "Dana", "Kim", "Shannon"
-) %>%
-  enframe(name = "fd_rank", value = "name")
-glimpse(fd_names)
+```{r static, fig.cap="The boundary of the MacLeish property."}
+boundary <- macleish_layers %>%
+  pluck("boundary")
+
+ggplot() +
+  geom_sf(data = boundary)
 ```
+
+## Dynamic maps
+
+You can make a basic dynamic map with **leaflet**, as shown in the figure below.
+
+```{r dynamic, fig.cap="The boundary of the MacLeish property."}
+library(leaflet)
+
+leaflet() %>%
+  addTiles() %>%
+  addPolygons(data = boundary)
+```
+
+
 
 ## Word count
 
@@ -78,6 +90,8 @@ standard_button("ethics")
 standard_button("github")
 standard_button("iteration")
 standard_button("function")
+standard_button("spatial")
+standard_button("leaflet")
 ```
 
 
